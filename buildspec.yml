@@ -2,9 +2,13 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 20
     commands:
+      - echo "Installing pnpm..."
+      - npm install -g pnpm
       - echo "Installing Serverless..."
-      - npm install
+      - pnpm install
   pre_build:
     commands:
       - echo "Preparing to deploy..."
@@ -12,7 +16,7 @@ phases:
     commands:
       - echo "Deployment started on `date`"
       - echo "Deploying with the Serverless Framework"
-      - npx serverless deploy -s $ENV_NAME
+      - pnpm exec serverless deploy -s $ENV_NAME
   post_build:
     commands:
       - echo "Deployment completed on `date`"

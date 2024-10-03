@@ -22,7 +22,7 @@ importers:
         version: 2.3.0
     devDependencies:
       '@serverless/typescript':
-        specifier: ^3.38.0
+        specifier: 3.38.0
         version: 3.38.0
       '@types/aws-lambda':
         specifier: ^8.10.71
@@ -37,7 +37,7 @@ importers:
         specifier: ^1.5.0
         version: 1.6.5
       serverless:
-        specifier: ^3.39.0
+        specifier: 3.39.0
         version: 3.39.0
       serverless-esbuild:
         specifier: ^1.23.3
