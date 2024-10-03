@@ -57,9 +57,15 @@ const serverlessConfiguration: AWS = {
     iamRoleStatements: [
       {
         Effect: "Allow",
-        Action: ["dynamodb:Query", "dynamodb:PutItem", "dynamodb:DeleteItem"],
+        Action: [
+          "dynamodb:Query",
+          "dynamodb:PutItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:GetItem",
+          "dynamodb:UpdateItem",
+        ],
         Resource:
-          "arn:aws:dynamodb:${opt:region,self:provider.region}:*:table/${self.provider.environment.NOTES_TABLE}",
+          "arn:aws:dynamodb:${opt:region,self:provider.region}:*:table/${self:provider.environment.NOTES_TABLE}",
       },
     ],
   },
