@@ -6,7 +6,7 @@ export default {
     {
       httpApi: {
         method: "patch",
-        path: "/note",
+        path: "/notes",
       },
     },
   ],

@@ -1,3 +1,3 @@
 export const getUserName = (headers) => {
-  return headers.appUserName;
+  return headers.app_user_name;
 };

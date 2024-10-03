@@ -1,3 +1,3 @@
 export const getUserId = (headers) => {
-  return headers.appUserId;
+  return headers.app_user_id;
 };

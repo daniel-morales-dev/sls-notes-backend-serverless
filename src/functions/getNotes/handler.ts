@@ -27,7 +27,7 @@ const getExclusiveStartKey = (query, userId) => {
   return undefined;
 };
 
-const updateNote = async (
+const getNotes = async (
   event: APIGatewayProxyEventV2
 ): Promise<APIGatewayProxyResultV2> => {
   try {
@@ -75,4 +75,4 @@ const updateNote = async (
   }
 };
 
-export const main = updateNote;
+export const main = getNotes;
