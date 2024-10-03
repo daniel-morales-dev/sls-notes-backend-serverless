@@ -6,7 +6,7 @@ export default {
     {
       httpApi: {
         method: "get",
-        path: "/notes/{noteId}/{timestamp}",
+        path: "/notes/{noteId}",
       },
     },
   ],

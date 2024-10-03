@@ -1,14 +1,15 @@
 import {
   DynamoDBClient,
-  GetItemCommand,
-  GetItemCommandInput,
+  QueryCommand,
+  QueryCommandInput,
 } from "@aws-sdk/client-dynamodb";
 import { formatJSONResponse } from "@libs/api-gateway";
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
+import { flattenDynamoDBItem } from "src/utils/flattenedDynamoDbItem";
 import { getResponseHeaders } from "src/utils/getResponseHeaders";
 
 /*
-  Route: GET /notes/{noteId}/${timestamp}
+  Route: GET /notes/{noteId}
 */
 const client = new DynamoDBClient({
   region: "us-east-1",
@@ -20,24 +21,20 @@ const getNote = async (
 ): Promise<APIGatewayProxyResultV2> => {
   try {
     const noteId = decodeURIComponent(event.pathParameters.noteId);
-    const timestamp = decodeURIComponent(event.pathParameters.timestamp);
 
-    const params: GetItemCommandInput = {
+    const params: QueryCommandInput = {
       TableName: TABLE_NAME,
-      Key: {
-        noteId: {
-          S: noteId,
-        },
-        timestamp: {
-          N: timestamp,
-        },
+      IndexName: "noteId-index",
+      KeyConditionExpression: "noteId = :nid", // Suponiendo que también estás guardando userId
+      ExpressionAttributeValues: {
+        ":nid": { S: noteId },
       },
     };
 
-    const command = new GetItemCommand(params);
+    const command = new QueryCommand(params);
     const response = await client.send(command);
 
-    if (!response.Item) {
+    if (!response.Items || !response.Items.length) {
       return {
         statusCode: 400,
         headers: getResponseHeaders(),
@@ -49,7 +46,7 @@ const getNote = async (
     }
 
     return formatJSONResponse({
-      ...response.Item,
+      ...flattenDynamoDBItem(response.Items[0]),
     });
   } catch (error) {
     console.error("Error", error);
