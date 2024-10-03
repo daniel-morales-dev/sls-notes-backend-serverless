@@ -63,6 +63,7 @@ const serverlessConfiguration: AWS = {
           "dynamodb:DeleteItem",
           "dynamodb:GetItem",
           "dynamodb:UpdateItem",
+          "dynamodb:DescribeTable",
         ],
         Resource:
           "arn:aws:dynamodb:${opt:region,self:provider.region}:*:table/${self:provider.environment.NOTES_TABLE}",
