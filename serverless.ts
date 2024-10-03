@@ -1,6 +1,8 @@
 import type { AWS } from "@serverless/typescript";
 
-import hello from "@functions/hello";
+import addNote from "@functions/addNote";
+import updateNote from "@functions/updateNote";
+import getNotes from "@functions/getNotes";
 
 const serverlessConfiguration: AWS = {
   service: "sls-notes-backend",
@@ -79,7 +81,7 @@ const serverlessConfiguration: AWS = {
       },
     },
   },
-  functions: { hello },
+  functions: { addNote, updateNote, getNotes },
   package: { individually: true },
   custom: {
     esbuild: {
