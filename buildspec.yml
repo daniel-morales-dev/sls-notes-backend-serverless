@@ -3,17 +3,19 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo Installing Serverless...
-      - npm install -g serverless@^3
+      - echo "Installing Serverless..."
+      - npm install
   pre_build:
     commands:
-      - echo Install source NPM dependencies...
-      - npm install
+      - echo "Preparing to deploy..."
   build:
     commands:
-      - echo Deployment started on `date`
-      - echo Deploying with the Serverless Framework
-      - serverless deploy -s $ENV_NAME
+      - echo "Deployment started on `date`"
+      - echo "Deploying with the Serverless Framework"
+      - npx serverless deploy -s $ENV_NAME
   post_build:
     commands:
-      - echo Deployment completed on `date`
+      - echo "Deployment completed on `date`"
+cache:
+  paths:
+    - node_modules/**
